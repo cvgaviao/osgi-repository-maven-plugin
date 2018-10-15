@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<repo:repository increment="1" name="An OSGi Repository" xmlns:repo="http://www.osgi.org/xmlns/repository/v1.0.0">
+  <repo:resource>
+    <repo:capability namespace="osgi.identity">
+      <repo:attribute name="osgi.identity" value="br.com.c8tech.bundle"/>
+      <repo:attribute name="type" value="osgi.bundle"/>
+      <repo:attribute name="version" type="Version" value="1.1.0"/>
+    </repo:capability>
+    <repo:capability namespace="osgi.content">
+      <repo:attribute name="osgi.content" value="c99ed7c612d3b00a8d94f1bba6f633bc3c85db558c5a99696b612ac8a8f04944"/>
+      <repo:attribute name="url" value="jars/aBundle.jar"/>
+      <repo:attribute name="size" type="Long" value="3265"/>
+      <repo:attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </repo:capability>
+    <repo:capability namespace="osgi.wiring.bundle">
+      <repo:attribute name="osgi.wiring.bundle" value="br.com.c8tech.bundle"/>
+      <repo:attribute name="bundle-version" type="Version" value="1.1.0"/>
+    </repo:capability>
+    <repo:capability namespace="osgi.wiring.host">
+      <repo:attribute name="osgi.wiring.host" value="br.com.c8tech.bundle"/>
+      <repo:attribute name="bundle-version" type="Version" value="1.1.0"/>
+    </repo:capability>
+  </repo:resource>
+  <repo:resource>
+    <repo:capability namespace="osgi.identity">
+      <repo:attribute name="osgi.identity" value="br.com.c8tech.anotherBundle"/>
+      <repo:attribute name="type" value="osgi.bundle"/>
+      <repo:attribute name="version" type="Version" value="1.0.0"/>
+    </repo:capability>
+    <repo:capability namespace="osgi.content">
+      <repo:attribute name="osgi.content" value="1396f668879bb3e13ec3b5ff66682338b52ef1b121a0031b917f573000144c4f"/>
+      <repo:attribute name="url" value="jars/anotherBundle.jar"/>
+      <repo:attribute name="size" type="Long" value="3271"/>
+      <repo:attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </repo:capability>
+    <repo:capability namespace="osgi.wiring.bundle">
+      <repo:attribute name="osgi.wiring.bundle" value="br.com.c8tech.anotherBundle"/>
+      <repo:attribute name="bundle-version" type="Version" value="1.0.0"/>
+    </repo:capability>
+    <repo:capability namespace="osgi.wiring.host">
+      <repo:attribute name="osgi.wiring.host" value="br.com.c8tech.anotherBundle"/>
+      <repo:attribute name="bundle-version" type="Version" value="1.0.0"/>
+    </repo:capability>
+  </repo:resource>
+</repo:repository>

@@ -1,0 +1,37 @@
+<lifecycleMappingMetadata>
+    <pluginExecutions>
+<!--         <pluginExecution> -->
+<!--             <pluginExecutionFilter> -->
+                <!-- Use unique Maven plugin version. -->
+<!--                 <groupId>${project.groupId}</groupId> -->
+<!--                 <artifactId>${project.artifactId}</artifactId> -->
+<!--                 <versionRange>${project.version}</versionRange> -->
+<!--                 <goals> -->
+<!--                 </goals> -->
+<!--             </pluginExecutionFilter> -->
+<!--             <action> -->
+<!--                 <configurator> -->
+<!--                     <id>io.takari.m2e.incrementalbuild.mojoExecutionConfigurator -->
+<!--                     </id> -->
+<!--                 </configurator> -->
+<!--             </action> -->
+<!--         </pluginExecution> -->
+        <pluginExecution>
+            <pluginExecutionFilter>
+                <goals>
+                    <goal>loadProperties</goal>
+                    <goal>cacheMavenArtifacts</goal>
+                    <goal>generateIndexFromDependencies</goal>
+                    <goal>downloadP2Artifacts</goal>
+                    <goal>generateP2FromDependencies</goal>
+                    <goal>generateTargetDefinitionFile</goal>
+                    <goal>packIndexedRepositoryArchive</goal>
+                    <goal>generateIndexFromFilesets</goal>
+                </goals>
+            </pluginExecutionFilter>
+            <action>
+                <ignore />
+            </action>
+        </pluginExecution>
+    </pluginExecutions>
+</lifecycleMappingMetadata>

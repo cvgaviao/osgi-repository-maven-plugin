@@ -2,41 +2,49 @@
 #
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2
-jobs:
-  build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
+version: 2 # use CircleCI 2.0
+jobs: # a collection of steps
+  build: # runs not using Workflows must have a `build` job as entry point
 
-    working_directory: ~/repo
+    branches:
+      ignore:
+        - gh-pages
+        
+    docker: # run the steps with Docker
+      # specify the version you desire here
+      - image: circleci/openjdk:8u181-jdk-stretch
+      
+    working_directory: ~/repo # directory where steps will run
 
     environment:
       # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
     
-    steps:
-      - checkout
+    steps: # a collection of executable commands
+      - checkout # check out source code to working directory
 
       # Download and cache dependencies
-      - restore_cache:
+      - restore_cache: # restore the saved cache after the first run or if `pom.xml` has changed
           keys:
           - v1-dependencies-{{ checksum "pom.xml" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: mvn dependency:go-offline
+      - run: mvn -s .circleci/.circleci.settings.xml -fn -DskipTests dependency:go-offline
 
-      - save_cache:
+      - save_cache: # saves the project dependencies
+          name: Dependencies caching
           paths:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
         
       # run tests!
-      - run: mvn integration-test
+      - run: mvn -s .circleci/.circleci.settings.xml -Dc8tech.build.test.coverage clean install
+
+    deployment:
+      main:
+        branch: master
+        commands:
+          - mvn -s .circleci/.circleci.settings.xml -DskipTests deploy
+
 

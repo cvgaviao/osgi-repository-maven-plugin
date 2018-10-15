@@ -1,0 +1,150 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <servers>
+        <server>
+        <!-- USING SONATYPE'S PROFILE -->
+            <id>c8tech-release-server</id>
+            <username>w3QQ4dgH</username>
+            <password>
+               ${env.C8TECH_RELEASE_SERVER_PASSWORD}
+            </password>
+        </server>
+        <server>
+            <id>c8tech-snapshots-server</id>
+            <username>w3QQ4dgH</username>
+            <password>
+                ${env.C8TECH_SNAPSHOTS_SERVER_PASSWORD}
+            </password>
+        </server>
+        <server>
+        <!-- USED BY SITE DEPLOYMENT AT GITHUB -->
+            <id>c8tech-tools-maven-library-ghpages</id>
+            <password>${env.GHPAGES_PASSWORD}
+            </password>
+        </server>
+
+    </servers>
+
+    <profiles>
+
+
+        <profile>
+            <id>C8Tech-OSS-Release</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+            
+            <!-- ** WORKSPACE ** -->
+                <c8tech.workspace.dir>
+                    ${CIRCLE_WORKING_DIRECTORY}${file.separator}workspace${file.separator}
+                </c8tech.workspace.dir>
+               
+            <!-- ========================  -->
+            <!--      SCM PROPERTIES       -->
+            <!-- ========================  -->
+
+                <project.scm.id>github.com</project.scm.id>
+
+                <c8tech.scm.user>cvgaviao</c8tech.scm.user>
+                <c8tech.scm.branch>master</c8tech.scm.branch>
+                <c8tech.scm.domain>
+                    https://github.com/
+                </c8tech.scm.domain>
+                <c8tech.scm.connection.protocol>
+                    scm:git:git://
+                </c8tech.scm.connection.protocol>
+                <c8tech.scm.connection.host>
+                    github.com/
+                </c8tech.scm.connection.host>
+                <c8tech.scm.connection.dev.protocol>
+                    scm:git:ssh://
+                </c8tech.scm.connection.dev.protocol>
+                <c8tech.scm.connection.dev.host>
+                    git@github.com
+                </c8tech.scm.connection.dev.host>
+                
+
+                <!-- =========================  -->
+                <!--  DISTRIBUTION PROPERTIES   -->
+                <!-- =========================  -->
+
+                <!-- Set distribution repositories -->
+                <c8tech.distribution.repository.release.url>
+                    https://oss.sonatype.org/service/local/staging/deploy/maven2/
+                </c8tech.distribution.repository.release.url>
+
+                <c8tech.distribution.repository.snapshot.url>
+                    https://oss.sonatype.org/content/repositories/snapshots/
+                </c8tech.distribution.repository.snapshot.url>
+
+                <!-- ========================  -->
+                <!--      SITE PROPERTIES       -->
+                <!-- ========================  -->
+                <!-- Set Site Server Location -->
+<!--                 <c8tech.distribution.site.id> -->
+<!--                     ${c8tech.scm.user}_gh-pages -->
+<!--                 </c8tech.distribution.site.id> -->
+
+                <c8tech.distribution.site.name>
+                    ${project.name} Site
+                </c8tech.distribution.site.name>
+
+            <!-- points to the root of project's site at github -->
+                <c8tech.site.domain>http://${c8tech.scm.user}.github.io/
+                </c8tech.site.domain>
+                <c8tech.distribution.protocol>github:
+                </c8tech.distribution.protocol>
+
+            <!-- Set Issue Management -->
+                <c8tech.im.system>Github</c8tech.im.system>
+                <c8tech.im.server.domain>
+                    https://github.com
+                </c8tech.im.server.domain>
+                <c8tech.im.server.dir>
+                    ${c8tech.scm.user}/${c8tech.scm.repo.name}/issues
+                </c8tech.im.server.dir>
+                
+            <!-- Set CI system and location -->
+                <c8tech.ci.system>Circle-CI</c8tech.ci.system>
+                <c8tech.ci.server.domain>
+                    https://circleci.com/gh/
+                </c8tech.ci.server.domain>
+                <c8tech.ci.server.user>cvgaviao</c8tech.ci.server.user>
+
+            </properties>
+
+            <repositories>
+                <repository>
+                    <id>sonatype-stage</id>
+                    <name>Sonatype Nexus Staged Releases</name>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <url>
+                        https://oss.sonatype.org/content/groups/staging
+                    </url>
+                </repository>
+                <repository>
+                    <id>sonatype-nexus-snapshots</id>
+                    <name>Sonatype Nexus Snapshots</name>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <url>
+                        https://oss.sonatype.org/content/repositories/snapshots
+                    </url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+
+</settings>

@@ -1,0 +1,21 @@
+<repo:resource>
+  <repo:capability namespace="osgi.identity">
+    <repo:attribute name="osgi.identity" value="org.example.a"/>
+    <repo:attribute name="type" value="osgi.bundle"/>
+    <repo:attribute name="version" type="Version" value="0.0.0"/>
+  </repo:capability>
+  <repo:capability namespace="osgi.content">
+    <repo:attribute name="osgi.content" value="64f661eea43334dc5d38d7f16dbcacd02c799e68332b40e72da8021828e3329c"/>
+    <repo:attribute name="url" value="testdata/01-bsn+version.jar"/>
+    <repo:attribute name="size" type="Long" value="1104"/>
+    <repo:attribute name="mime" value="application/vnd.osgi.bundle"/>
+  </repo:capability>
+  <repo:capability namespace="osgi.wiring.bundle">
+    <repo:attribute name="osgi.wiring.bundle" value="org.example.a"/>
+    <repo:attribute name="bundle-version" type="Version" value="0.0.0"/>
+  </repo:capability>
+  <repo:capability namespace="osgi.wiring.host">
+    <repo:attribute name="osgi.wiring.host" value="org.example.a"/>
+    <repo:attribute name="bundle-version" type="Version" value="0.0.0"/>
+  </repo:capability>
+</repo:resource>

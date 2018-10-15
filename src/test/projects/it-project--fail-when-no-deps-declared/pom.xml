@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- #%L
+  Maven Plugin for OSGi Indexed Repositories Archive Generation
+  %%
+  Copyright (C) 2012 - 2017 Cristiano Gavião, C8 Technology ME
+  %%
+  This program and the accompanying materials are made available under 
+    the terms of the Eclipse Public License v1.0 and Eclipse Distribution License 
+    v. 1.0 which accompanies this distribution. The Eclipse Public License is 
+    available at http://www.eclipse.org/legal/epl-v10.html and the Eclipse Distribution 
+    License is available at http://www.eclipse.org/org/documents/edl-v10.php.
+  #L% -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>br.com.c8tech.tools</groupId>
+    <artifactId>osgi-repository.it.test</artifactId>
+    <version>1.0.0</version>
+    <packaging>osgi.repository</packaging>
+    <name>A project for tests</name>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>br.com.c8tech.tools</groupId>
+                <artifactId>osgi-repository-maven-plugin</artifactId>
+                <version>${it-plugin.version}</version>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

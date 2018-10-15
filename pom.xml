@@ -1,0 +1,234 @@
+
+<!-- ==========================================================================  -->
+<!-- Copyright © 2015-2018 Cristiano Gavião, C8 Technology ME.                         -->
+<!--                                                                             -->
+<!-- All rights reserved. This program and the accompanying materials            -->
+<!-- are made available under the terms of the Eclipse Public License v1.0       -->
+<!-- which accompanies this distribution, and is available at                    -->
+<!-- http://www.eclipse.org/legal/epl-v10.html                                   -->
+<!--                                                                             -->
+<!-- Contributors:                                                               -->
+<!-- Cristiano Gavião (cvgaviao@c8tech.com.br)- initial API and implementation   -->
+<!-- ==========================================================================  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>br.com.c8tech.tools</groupId>
+        <artifactId>c8tech-tools-maven-pom</artifactId>
+        <version>0.5.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>osgi-repository-maven-plugin</artifactId>
+    <name>OSGi Repository Generator Maven Plugin</name>
+    <description>A maven plugin that is aimed to generate an archive \
+       containing one or two OSGi indexed repositories based on project's dependencies.</description>
+    <packaging>takari-maven-plugin</packaging>
+
+    <!-- not inherited, IIRC -->
+    <prerequisites>
+        <maven>[3.5,)</maven>
+    </prerequisites>
+
+    <!-- Due a maven limitation, this MUST be replicated to all children -->
+    <url>${c8tech.project.site.url}</url>
+    <scm>
+        <connection>${c8tech.scm.connection}</connection>
+        <developerConnection>${c8tech.scm.connection.dev}</developerConnection>
+        <url>${c8tech.scm.url}</url>
+        <tag>HEAD</tag>
+    </scm>
+    <distributionManagement>
+        <site>
+            <id>${c8tech.distribution.site.id}</id>
+            <name>${c8tech.distribution.site.name}</name>
+            <url>${c8tech.distribution.site.url}</url>
+        </site>
+    </distributionManagement>
+    <!-- end of per child setting -->
+
+
+    <properties>
+        <c8tech.scm.repo.name>osgi-repository-maven-plugin</c8tech.scm.repo.name>
+        <tycho.version>1.2.0</tycho.version>
+        <version.c8tech.maven.library>0.6.0</version.c8tech.maven.library>
+    </properties>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>3.5.2</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <dependencies>
+        <dependency>
+            <groupId>br.com.c8tech.tools</groupId>
+            <artifactId>c8tech.tools.maven.library.mojo</artifactId>
+            <version>${version.c8tech.maven.library}</version>
+        </dependency>
+        <dependency>
+            <groupId>br.com.c8tech.tools</groupId>
+            <artifactId>c8tech.tools.maven.library.osgi.subsystem</artifactId>
+            <version>${version.c8tech.maven.library}</version>
+        </dependency>
+        <dependency>
+            <groupId>br.com.c8tech.tools</groupId>
+            <artifactId>c8tech.tools.maven.library.osgi.repoindex</artifactId>
+            <version>${version.c8tech.maven.library}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugin-tools</groupId>
+            <artifactId>maven-plugin-annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model-builder</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-artifact</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-settings</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.tycho</groupId>
+            <artifactId>sisu-equinox-launching</artifactId>
+            <version>${tycho.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.tycho</groupId>
+            <artifactId>tycho-p2-facade</artifactId>
+            <version>${tycho.version}</version>
+        </dependency>
+
+        <!-- Build Avoidance -->
+        <dependency>
+            <groupId>io.takari</groupId>
+            <artifactId>incrementalbuild</artifactId>
+        </dependency>
+        <!-- -->
+
+        <dependency>
+            <groupId>org.apache.maven.shared</groupId>
+            <artifactId>maven-shared-utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.pojosr</groupId>
+            <artifactId>de.kalpatec.pojosr.framework.bare</artifactId>
+            <version>${version.pojosr}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>org.osgi.compendium</artifactId>
+                    <groupId>org.osgi</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>org.osgi.core</artifactId>
+                    <groupId>org.osgi</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.annotation</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.cmpn</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.shared</groupId>
+            <artifactId>maven-artifact-transfer</artifactId>
+            <version>0.10.0</version>
+        </dependency>
+        
+            <!-- test-properties -->
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-compat</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.takari.maven.plugins</groupId>
+            <artifactId>takari-plugin-testing</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.takari.maven.plugins</groupId>
+            <artifactId>takari-plugin-integration-testing</artifactId>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>${version.junit}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>1.1.6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>2.0.6</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.takari.maven.plugins</groupId>
+                <artifactId>takari-lifecycle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <debug>true</debug>
+
+                    <missingPropertyAction>fail</missingPropertyAction>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

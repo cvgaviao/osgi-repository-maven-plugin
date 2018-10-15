@@ -1,0 +1,44 @@
+
+<component-set>
+    <components>
+        <component>
+            <role>org.apache.maven.lifecycle.mapping.LifecycleMapping
+            </role>
+            <role-hint>osgi.repository</role-hint>
+            <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping
+            </implementation>
+            <configuration>
+                <lifecycles>
+                    <lifecycle>
+                        <id>default</id>
+                        <phases>
+                            <validate>
+                                ${project.groupId}:${project.artifactId}:${project.version}:loadProperties
+                            </validate>
+                            <generate-resources>
+                                ${project.groupId}:${project.artifactId}:${project.version}:downloadP2Artifacts,
+                                ${project.groupId}:${project.artifactId}:${project.version}:cacheMavenArtifacts
+                            </generate-resources>
+                            <process-resources>
+                                ${project.groupId}:${project.artifactId}:${project.version}:generateP2FromDependencies
+                            </process-resources>
+                            <compile>
+                                ${project.groupId}:${project.artifactId}:${project.version}:generateIndexFromDependencies
+                            </compile>
+                            <package>
+                                ${project.groupId}:${project.artifactId}:${project.version}:packIndexedRepositoryArchive,
+                                ${project.groupId}:${project.artifactId}:${project.version}:generateTargetDefinitionFile
+                            </package>
+                            <install>
+                                org.apache.maven.plugins:maven-install-plugin:${version.maven-install}:install
+                            </install>
+                            <deploy>
+                                org.apache.maven.plugins:maven-deploy-plugin:${version.maven-deploy}:deploy
+                            </deploy>
+                        </phases>
+                    </lifecycle>
+                </lifecycles>
+            </configuration>
+        </component>
+    </components>
+</component-set>
