@@ -1,0 +1,36 @@
+Usage:
+------
+
+Add the plugin to your pom:
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>${project.artifactId}</artifactId>
+                <version>${project.version}</version>
+                <configuration>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+    
+Generating OSGi R5 repository index archive
+--------------------------------------------
+
+* Only Git is supported
+* Each module released will have a separate tag with its artifact ID and version so that it is easy to see when a
+version of a module was released
+* A module is only released if there are changes to it
+* The release version of the pom is not committed back to the repository
+* Tests are run once by default (or optionally not at all)
+
+Generating Eclipse P2 repository archive
+--------------------------------------------
+
+
+
+Generating Eclipse P2 target platform file
+--------------------------------------------
+    

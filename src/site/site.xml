@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="C8Tech OSGi Repository Maven Plugin"
+    xmlns="http://maven.apache.org/DECORATION/1.4.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/DECORATION/1.4.0
+                      http://maven.apache.org/xsd/decoration-1.4.0.xsd">
+
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.7</version>
+    </skin>
+
+    <custom>
+        <fluidoSkin>
+            <topBarEnabled>false</topBarEnabled>
+            <sideBarEnabled>true</sideBarEnabled>
+            <gitHub>
+                <projectId>
+                    cvgaviao/osgi-repository-maven-plugin
+                </projectId>
+                <ribbonOrientation>right</ribbonOrientation>
+                <ribbonColor>black</ribbonColor>
+            </gitHub>
+        </fluidoSkin>
+    </custom>
+
+    <bannerLeft>
+        <name>${this.organization.name}</name>
+        <src>images/c8tech.logo.png</src>
+        <href>${this.organization.url}</href>
+    </bannerLeft>
+    <bannerRight>
+        <name>${this.name}</name>
+        <href>${this.url}</href>
+    </bannerRight>
+
+    <body>
+        <menu name="Overview">
+            <item name="Introduction" href="index.html" />
+            <item name="Goals" href="plugin-info.html" />
+            <item name="Usage" href="usage.html" />
+            <item name="License"
+                href="http://www.eclipse.org/legal/epl-v10.html" />
+            <item name="Changelog" href="./changelog.html" />
+        </menu>
+        <menu name="Examples">
+            <item name="description1"
+                href="examples/example-one.html" />
+            <item name="description2"
+                href="examples/example-two.html" />
+        </menu>
+        <menu ref="reports" />
+    </body>
+
+
+    <poweredBy>
+        <logo name="Maven" href="https://maven.apache.org/"
+            img="https://maven.apache.org/images/logos/maven-feather.png" />
+    </poweredBy>
+
+</project>

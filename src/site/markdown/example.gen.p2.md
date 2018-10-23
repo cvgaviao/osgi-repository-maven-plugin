@@ -1,0 +1,1 @@
+Example of how setup in order to generate a Eclipse P2 and a Target Platform file. 

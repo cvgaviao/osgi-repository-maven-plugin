@@ -1,0 +1,43 @@
+Introduction
+--------------
+
+The OSGi Repository Generator maven plugin is aimed to manage the lifecycle of a project that can generate both P2 or OSGi R5 indexed files based on bundle hosted in P2 or maven repositories.
+This plugin provides a 'osgi-repository' packaging that should be used in order to be able to manage is lifecycle. 
+
+
+### Main features:
+
+* download and locally cache bundle or subsystem artifacts from maven or p2 external repositories. The artifacts to be downloaded can be from the declared dependencies as can be described in the plug-in's configuration tag.
+* generate P2 or compressed repository index artifact (.zip) using the cached bundles or subsystem artifacts.
+* generate a local maven repository artifacts using the cached bundles or subsystem artifacts.
+* generate a R5 OSGi index XML file or as compressed artifact (.zip) using the cached bundles or subsystem artifacts.
+
+
+Quickstart
+----------
+
+The plugin provides the `osgi.repository` *packaging type*
+
+    <groupId>my-project</groupId>
+    <artifactId>my-osgi-repository</artifactId>
+    <packaging>osgi.repository</packaging>
+
+
+Add the following to your plugins section:
+
+	<plugin>
+		<groupId>${project.groupId}</groupId>
+		<artifactId>${project.artifactId}</artifactId>
+		<version>${project.version}</version>
+	</plugin>
+
+And then use the *osgi.repository* as the packaging type of your repository project.
+
+See [usage](usage.html) for more details.
+
+
+
+Prerequisites
+-------------
+
+The plugin requires **Maven ${project.prerequisites.maven}** or later and **Java 8** or later. 
