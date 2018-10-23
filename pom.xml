@@ -18,11 +18,12 @@
     <parent>
         <groupId>br.com.c8tech.tools</groupId>
         <artifactId>c8tech-tools-maven-pom</artifactId>
-        <version>0.5.1-SNAPSHOT</version>
+        <version>0.7.4</version>
     </parent>
 
     <artifactId>osgi-repository-maven-plugin</artifactId>
     <name>OSGi Repository Generator Maven Plugin</name>
+    <version>0.5.1-SNAPSHOT</version>
     <description>A maven plugin that is aimed to generate an archive \
        containing one or two OSGi indexed repositories based on project's dependencies.</description>
     <packaging>takari-maven-plugin</packaging>
@@ -52,8 +53,8 @@
 
     <properties>
         <c8tech.scm.repo.name>osgi-repository-maven-plugin</c8tech.scm.repo.name>
+        <version.c8tech.maven.library>0.7.4</version.c8tech.maven.library>
         <tycho.version>1.2.0</tycho.version>
-        <version.c8tech.maven.library>0.6.0</version.c8tech.maven.library>
     </properties>
 
     <reporting>

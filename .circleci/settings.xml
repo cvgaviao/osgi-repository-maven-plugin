@@ -6,35 +6,39 @@
         <server>
         <!-- USING SONATYPE'S PROFILE -->
             <id>c8tech-release-server</id>
-            <username>w3QQ4dgH</username>
-            <password>
-               ${env.C8TECH_RELEASE_SERVER_PASSWORD}
-            </password>
+            <username>${env.C8TECH_SONATYPE_USER}</username>
+            <password>${env.C8TECH_SONATYPE_PASSWORD}</password>
         </server>
         <server>
             <id>c8tech-snapshots-server</id>
-            <username>w3QQ4dgH</username>
-            <password>
-                ${env.C8TECH_SNAPSHOTS_SERVER_PASSWORD}
-            </password>
+            <username>${env.C8TECH_SONATYPE_USER}</username>
+            <password>${env.C8TECH_SONATYPE_PASSWORD}</password>
         </server>
         <server>
         <!-- USED BY SITE DEPLOYMENT AT GITHUB -->
-            <id>c8tech-tools-maven-library-ghpages</id>
-            <password>${env.GHPAGES_PASSWORD}
-            </password>
+            <id>osgi-repository-maven-plugin-ghpages</id>
+            <password>${env.GHPAGES_PASSWORD}</password>
         </server>
 
     </servers>
 
+    <activeProfiles>
+        <activeProfile>CI</activeProfile>
+        <activeProfile>Signing</activeProfile>
+    </activeProfiles>
     <profiles>
 
-
         <profile>
-            <id>C8Tech-OSS-Release</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+            <id>Signing</id>
+            <properties>
+                <gpg.executable>gpg</gpg.executable>
+                <gpg.keyname>${env.C8TECH_GPG_KEY_ID}</gpg.keyname>
+                <gpg.passphrase>${env.C8TECH_GPG_PASSPHRASE}</gpg.passphrase>
+                <gpg.homedir>/home/circleci/.gnupg/</gpg.homedir>
+            </properties>
+        </profile>
+        <profile>
+            <id>CI</id>
             <properties>
             
             <!-- ** WORKSPACE ** -->
@@ -70,30 +74,32 @@
                 <!-- =========================  -->
                 <!--  DISTRIBUTION PROPERTIES   -->
                 <!-- =========================  -->
-
                 <!-- Set distribution repositories -->
+                <c8tech.distribution.repository.release.id>c8tech-release-server</c8tech.distribution.repository.release.id>
+                <c8tech.distribution.repository.snapshot.id>c8tech-snapshots-server</c8tech.distribution.repository.snapshot.id>
+                
+                <c8tech.distribution.repository.base.url>
+                    https://oss.sonatype.org/
+                </c8tech.distribution.repository.base.url>
                 <c8tech.distribution.repository.release.url>
-                    https://oss.sonatype.org/service/local/staging/deploy/maven2/
+                    ${c8tech.distribution.repository.base.url}/service/local/staging/deploy/maven2/
                 </c8tech.distribution.repository.release.url>
-
                 <c8tech.distribution.repository.snapshot.url>
-                    https://oss.sonatype.org/content/repositories/snapshots/
+                    ${c8tech.distribution.repository.base.url}/content/repositories/snapshots/
                 </c8tech.distribution.repository.snapshot.url>
 
                 <!-- ========================  -->
                 <!--      SITE PROPERTIES       -->
                 <!-- ========================  -->
                 <!-- Set Site Server Location -->
-<!--                 <c8tech.distribution.site.id> -->
-<!--                     ${c8tech.scm.user}_gh-pages -->
-<!--                 </c8tech.distribution.site.id> -->
 
+                <c8tech.site.user>cvgaviao</c8tech.site.user>
                 <c8tech.distribution.site.name>
                     ${project.name} Site
                 </c8tech.distribution.site.name>
 
             <!-- points to the root of project's site at github -->
-                <c8tech.site.domain>http://${c8tech.scm.user}.github.io/
+                <c8tech.site.domain>http://${c8tech.site.user}.github.io/
                 </c8tech.site.domain>
                 <c8tech.distribution.protocol>github:
                 </c8tech.distribution.protocol>
@@ -112,7 +118,7 @@
                 <c8tech.ci.server.domain>
                     https://circleci.com/gh/
                 </c8tech.ci.server.domain>
-                <c8tech.ci.server.user>cvgaviao</c8tech.ci.server.user>
+                <c8tech.ci.server.user>c8tech-releaser-bot</c8tech.ci.server.user>
 
             </properties>
 

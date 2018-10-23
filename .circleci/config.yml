@@ -2,25 +2,29 @@
 #
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2 # use CircleCI 2.0
+
+defaults: &defaults
+  docker: # run the steps with Docker
+    - image: circleci/openjdk:8u181-jdk-stretch
+      
+  working_directory: ~/repo # directory where repository will be checked-out and steps will run
+
+  environment:
+    # Customize the JVM maximum heap limit
+    MAVEN_OPTS: -Xmx3200m
+
+
+version: 2
+
 jobs: # a collection of steps
   build: # runs not using Workflows must have a `build` job as entry point
 
-    branches:
-      ignore:
-        - gh-pages
-        
-    docker: # run the steps with Docker
-      # specify the version you desire here
-      - image: circleci/openjdk:8u181-jdk-stretch
-      
-    working_directory: ~/repo # directory where steps will run
+    <<: *defaults
 
-    environment:
-      # Customize the JVM maximum heap limit
-      MAVEN_OPTS: -Xmx3200m
     
     steps: # a collection of executable commands
+      - add_ssh_keys
+
       - checkout # check out source code to working directory
 
       # Download and cache dependencies
@@ -30,7 +34,8 @@ jobs: # a collection of steps
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: mvn -s .circleci/.circleci.settings.xml -fn -DskipTests dependency:go-offline
+      # Build 
+      - run: mvn -s .circleci/settings.xml -fn -DskipTests dependency:go-offline
 
       - save_cache: # saves the project dependencies
           name: Dependencies caching
@@ -38,13 +43,29 @@ jobs: # a collection of steps
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
         
-      # run tests!
-      - run: mvn -s .circleci/.circleci.settings.xml -Dc8tech.build.test.coverage clean install
-
-    deployment:
-      main:
-        branch: master
-        commands:
-          - mvn -s .circleci/.circleci.settings.xml -DskipTests deploy
+      # Run tests!
+      - run: mvn -s .circleci/settings.xml -Dc8tech.build.test.coverage clean install
 
 
+      # Deploy if on master branch. If the $RELEASE and $NEXT variables are set then prepare a full maven release.
+      - deploy:
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            
+              echo $C8TECH_GPG_KEY | base64 --decode > signing-key
+                gpg --pinentry-mode=loopback --passphrase $C8TECH_GPG_PASSPHRASE --import signing-key
+                shred signing-key
+            
+              echo "1234" | gpg --pinentry-mode=loopback --passphrase "${C8TECH_GPG_PASSPHRASE}" -o /dev/null --local-user "${C8TECH_GPG_KEY_ID}" -as - && echo "The correct passphrase was entered for this key"
+              
+              if [[ -n "${RELEASE_VERSION}" && -n "${NEXT_VERSION}" ]]; then
+                
+                echo "starting release for release-version= ${RELEASE_VERSION} next-version= ${NEXT_VERSION}" 
+                git config --global user.email "releaser-bot@c8tech.com.br"
+                git config --global user.name "c8tech releaser bot"
+                mvn -B -s .circleci/settings.xml release:prepare -DdryRun=${C8TECH_RELEASE_DRYRUN} -Darguments="-s .circleci/settings.xml" -Dc8tech.build.release -DreleaseVersion=$RELEASE_VERSION -DdevelopmentVersion=$NEXT_VERSION -DscmCommentPrefix="release: "
+              else
+                mvn -B -s .circleci/settings.xml deploy -Dc8tech.build.release
+              fi
+            fi
+        
