@@ -18,7 +18,7 @@
     <parent>
         <groupId>br.com.c8tech.tools</groupId>
         <artifactId>c8tech-tools-maven-pom</artifactId>
-        <version>0.7.4</version>
+        <version>0.7.6</version>
     </parent>
 
     <artifactId>osgi-repository-maven-plugin</artifactId>
@@ -53,7 +53,7 @@
 
     <properties>
         <c8tech.scm.repo.name>osgi-repository-maven-plugin</c8tech.scm.repo.name>
-        <version.c8tech.maven.library>0.7.4</version.c8tech.maven.library>
+        <version.c8tech.maven.library>0.7.6</version.c8tech.maven.library>
         <tycho.version>1.2.0</tycho.version>
     </properties>
 

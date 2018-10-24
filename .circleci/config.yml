@@ -52,11 +52,16 @@ jobs: # a collection of steps
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
             
+              declare current_tag=$(git tag -l --points-at HEAD || true )
+              echo " TAG: ${current_tag}" 
+
               echo $C8TECH_GPG_KEY | base64 --decode > signing-key
                 gpg --pinentry-mode=loopback --passphrase $C8TECH_GPG_PASSPHRASE --import signing-key
                 shred signing-key
             
               echo "1234" | gpg --pinentry-mode=loopback --passphrase "${C8TECH_GPG_PASSPHRASE}" -o /dev/null --local-user "${C8TECH_GPG_KEY_ID}" -as - && echo "The correct passphrase was entered for this key"
+
+              echo $C8TECH_KEYSTORE | base64 --decode > $C8TECH_KEYSTORE_FILENAME
               
               if [[ -n "${RELEASE_VERSION}" && -n "${NEXT_VERSION}" ]]; then
                 
@@ -65,7 +70,13 @@ jobs: # a collection of steps
                 git config --global user.name "c8tech releaser bot"
                 mvn -B -s .circleci/settings.xml release:prepare -DdryRun=${C8TECH_RELEASE_DRYRUN} -Darguments="-s .circleci/settings.xml" -Dc8tech.build.release -DreleaseVersion=$RELEASE_VERSION -DdevelopmentVersion=$NEXT_VERSION -DscmCommentPrefix="release: "
               else
-                mvn -B -s .circleci/settings.xml deploy -Dc8tech.build.release
+                if [[ -n "${current_tag}" && "${current_tag}" == v* ]]; then
+                   echo "starting deployment of version= ${current_tag}" 
+                   mvn -B -s .circleci/settings.xml deploy -Dc8tech.build.release -Dc8tech.build.test.coverage
+                else
+                   echo "starting deployment of snaphot version by ${CIRCLE_PROJECT_USERNAME}" 
+                   mvn -B -s .circleci/settings.xml deploy -Dc8tech.build.test.coverage
+                fi       
               fi
             fi
         
