@@ -26,8 +26,8 @@
         <activeProfile>CI</activeProfile>
         <activeProfile>Signing</activeProfile>
     </activeProfiles>
+    
     <profiles>
-
         <profile>
             <id>Signing</id>
             <properties>
@@ -35,6 +35,15 @@
                 <gpg.keyname>${env.C8TECH_GPG_KEY_ID}</gpg.keyname>
                 <gpg.passphrase>${env.C8TECH_GPG_PASSPHRASE}</gpg.passphrase>
                 <gpg.homedir>/home/circleci/.gnupg/</gpg.homedir>
+                 
+                <!-- Sign Jars -->
+                <jarsigner.alias>${env.C8TECH_KEYSTORE_KEY_ID}</jarsigner.alias>
+                <jarsigner.keypass>${env.C8TECH_KEYSTORE_KEY_PWD}</jarsigner.keypass>
+                <jarsigner.keystore>
+                    ${env.CIRCLE_WORKING_DIRECTORY}/${env.C8TECH_KEYSTORE_FILENAME}
+                </jarsigner.keystore>
+                <jarsigner.storepass>${env.C8TECH_KEYSTORE_PWD}</jarsigner.storepass>
+                <jarsigner.storetype>${env.C8TECH_KEYSTORE_TYPE}</jarsigner.storetype>
             </properties>
         </profile>
         <profile>
