@@ -41,7 +41,7 @@
                     <p2ArtifactSets>
                         <p2ArtifactSet>
                             <repositoryURL>
-                                ${repodir}
+                                ${p2ArtifactSetRepositoryUrl}
                             </repositoryURL>
                             <artifact>
                                 aBundle:1.8.4

@@ -86,7 +86,7 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
@@ -120,6 +120,12 @@
         </dependency>
         <dependency>
             <groupId>org.eclipse.tycho</groupId>
+            <artifactId>tycho-bundles-external</artifactId>
+            <version>${tycho.version}</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.tycho</groupId>
             <artifactId>sisu-equinox-launching</artifactId>
             <version>${tycho.version}</version>
         </dependency>
@@ -128,6 +134,12 @@
             <artifactId>tycho-p2-facade</artifactId>
             <version>${tycho.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.tycho</groupId>
+            <artifactId>org.eclipse.tycho.core.shared</artifactId>
+            <version>${tycho.version}</version>
+        </dependency>
+        
 
         <!-- Build Avoidance -->
         <dependency>

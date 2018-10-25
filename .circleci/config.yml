@@ -35,7 +35,7 @@ jobs: # a collection of steps
           - v1-dependencies-
 
       # Build 
-      - run: mvn -s .circleci/settings.xml -Dc8tech.build.test.coverage -fn dependency:go-offline
+      - run: mvn -s .circleci/settings.xml -Dc8tech.build.release -Dc8tech.build.test.coverage -fn dependency:go-offline
 
       - save_cache: # saves the project dependencies
           name: Dependencies caching

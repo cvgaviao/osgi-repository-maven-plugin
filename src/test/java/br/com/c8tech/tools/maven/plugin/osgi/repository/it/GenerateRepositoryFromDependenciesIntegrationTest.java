@@ -81,7 +81,7 @@ public class GenerateRepositoryFromDependenciesIntegrationTest
 
         MavenRuntime mavenRuntime2 = mavenRuntimeBuilder
                 .withCliOptions(
-                        "-Drepodir=" + repo.toURI().toURL().toExternalForm())
+                        "-Dp2ArtifactSetRepositoryUrl=" + repo.toURI().toURL().toExternalForm())
                 .build();
         File basedir = resources.getBasedir("it-project--embedAndNoP2");
         MavenExecutionResult result = mavenRuntime2.forProject(basedir)
@@ -124,7 +124,7 @@ public class GenerateRepositoryFromDependenciesIntegrationTest
 
         MavenRuntime mavenRuntime2 = mavenRuntimeBuilder
                 .withCliOptions(
-                        "-Drepodir=" + repo.toURI().toURL().toExternalForm())
+                        "-Dp2ArtifactSetRepositoryUrl=" + repo.toURI().toURL().toExternalForm())
                 .build();
         File basedir = resources
                 .getBasedir("it-project--p2-with-custom-category");
@@ -185,7 +185,7 @@ public class GenerateRepositoryFromDependenciesIntegrationTest
 
         MavenRuntime mavenRuntime2 = mavenRuntimeBuilder
                 .withCliOptions("-DsubsystemPath=" + ss.getAbsolutePath(),
-                        "-Drepodir=" + repo.toURI().toURL().toExternalForm())
+                        "-Dp2ArtifactSetRepositoryUrl=" + repo.toURI().toURL().toExternalForm())
                 .build();
         File basedir = resources.getBasedir("it-project--p2");
         MavenExecutionResult result = mavenRuntime2.forProject(basedir)
@@ -238,7 +238,7 @@ public class GenerateRepositoryFromDependenciesIntegrationTest
 
         MavenRuntime mavenRuntime2 = mavenRuntimeBuilder
                 .withCliOptions(
-                        "-Drepodir=" + repo.toURI().toURL().toExternalForm())
+                        "-Dp2ArtifactSetRepositoryUrl=" + repo.toURI().toURL().toExternalForm())
                 .build();
         File basedir = resources.getBasedir("it-project--p2AndNoEmbed");
 
@@ -328,7 +328,7 @@ public class GenerateRepositoryFromDependenciesIntegrationTest
 
         MavenRuntime mavenRuntime2 = mavenRuntimeBuilder
                 .withCliOptions(
-                        "-Drepodir=" + repo.toURI().toURL().toExternalForm())
+                        "-Dp2ArtifactSetRepositoryUrl=" + repo.toURI().toURL().toExternalForm())
                 .build();
         MavenExecutionResult result = mavenRuntime2.forProject(basedir)
                 .execute("clean", "package");

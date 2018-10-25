@@ -54,7 +54,7 @@
                         <p2ArtifactSet>
                             <defaultGroupId>c8tech</defaultGroupId>
                             <repositoryURL>
-                                ${repodir}
+                                ${p2ArtifactSetRepositoryUrl}
                             </repositoryURL>
                             <artifact>
                                 aBundle:1.8.4

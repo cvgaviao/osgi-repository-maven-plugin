@@ -57,7 +57,7 @@ public class OfflineBeahavioursIntegrationTest {
 
         MavenRuntime mavenRuntime2 = mavenRuntimeBuilder
                 .withCliOptions(
-                        "-Drepodir=" + repo.toURI().toURL().toExternalForm())
+                        "-Dp2ArtifactSetRepositoryUrl=" + repo.toURI().toURL().toExternalForm())
                 .build();
         File basedir = resources.getBasedir("it-project--p2-offline");
         Path plugins = Files.createDirectories(
