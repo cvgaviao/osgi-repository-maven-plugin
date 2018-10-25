@@ -18,7 +18,7 @@
     <parent>
         <groupId>br.com.c8tech.tools</groupId>
         <artifactId>c8tech-tools-maven-pom</artifactId>
-        <version>0.7.6</version>
+        <version>0.7.7-SNAPSHOT</version>
     </parent>
 
     <artifactId>osgi-repository-maven-plugin</artifactId>
@@ -53,7 +53,7 @@
 
     <properties>
         <c8tech.scm.repo.name>osgi-repository-maven-plugin</c8tech.scm.repo.name>
-        <version.c8tech.maven.library>0.7.6</version.c8tech.maven.library>
+        <version.c8tech.maven.library>${project.parent.version}</version.c8tech.maven.library>
         <tycho.version>1.2.0</tycho.version>
     </properties>
 
@@ -221,7 +221,7 @@
             <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>br.com.c8tech.tools</groupId>
             <artifactId>c8tech-tools-maven-pom</artifactId>
@@ -251,9 +251,17 @@
                 <extensions>true</extensions>
                 <configuration>
                     <debug>true</debug>
-
                     <missingPropertyAction>fail</missingPropertyAction>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>default-deploy</id>
+                        <phase>none</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

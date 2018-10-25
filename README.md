@@ -1,5 +1,7 @@
 [![CircleCI](https://circleci.com/gh/cvgaviao/osgi-repository-maven-plugin.svg?style=svg)](https://circleci.com/gh/cvgaviao/osgi-repository-maven-plugin)
 
+[![Maven Central](https://img.shields.io/maven-central/v/br.com.c8tech.tools/osgi-repository-maven-plugin.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22br.com.c8tech.tools%22%20AND%20a:%22osgi-repository-maven-plugin%22)
+
 OSGi Indexed Repositories Archive Generator Maven Plugin 
 ================================
 
