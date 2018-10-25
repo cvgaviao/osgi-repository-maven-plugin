@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/cvgaviao/osgi-repository-maven-plugin.svg?style=svg)](https://circleci.com/gh/cvgaviao/osgi-subsystem-maven-plugin)
+[![CircleCI](https://circleci.com/gh/cvgaviao/osgi-repository-maven-plugin.svg?style=svg)](https://circleci.com/gh/cvgaviao/osgi-repository-maven-plugin)
 
 OSGi Indexed Repositories Archive Generator Maven Plugin 
 ================================
