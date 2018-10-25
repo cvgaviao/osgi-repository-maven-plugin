@@ -139,7 +139,11 @@
             <artifactId>org.eclipse.tycho.core.shared</artifactId>
             <version>${tycho.version}</version>
         </dependency>
-        
+        <dependency>
+            <groupId>org.eclipse.tycho</groupId>
+            <artifactId>org.eclipse.tycho.p2.resolver.impl</artifactId>
+            <version>${tycho.version}</version>
+        </dependency>
 
         <!-- Build Avoidance -->
         <dependency>
@@ -217,6 +221,15 @@
             <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>br.com.c8tech.tools</groupId>
+            <artifactId>c8tech-tools-maven-pom</artifactId>
+            <version>${version.c8tech.maven.library}</version>
+            <scope>test</scope>
+            <type>pom</type>
+        </dependency>
+
         <dependency>
             <groupId>jaxen</groupId>
             <artifactId>jaxen</artifactId>
