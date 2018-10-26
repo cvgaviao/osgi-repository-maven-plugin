@@ -18,7 +18,7 @@
     <parent>
         <groupId>br.com.c8tech.tools</groupId>
         <artifactId>c8tech-tools-maven-pom</artifactId>
-        <version>0.7.7-SNAPSHOT</version>
+        <version>0.7.8</version>
     </parent>
 
     <artifactId>osgi-repository-maven-plugin</artifactId>
