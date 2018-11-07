@@ -87,6 +87,12 @@ public class MojoGenerateIndexFromDependencies
     public void executeMojo()
             throws MojoExecutionException, MojoFailureException {
 
+        if (!isGenerateIndex()) {
+            getLog().info(
+                    "Skipping R5 OSGi index repository generation since it was not allowed.");
+            return;
+        }
+
         getLog().info(
                 "Setting up generation of the OSGi repository index file for project "
                         + getProject().getArtifactId());
@@ -100,9 +106,9 @@ public class MojoGenerateIndexFromDependencies
                         isGenerateP2() ? CACHED_FILE_PATTERN_DEFAULT_FINALNAME
                                 : getCachedFileNamePattern())
                 .withRepositorySystem(getRepositorySystem()).workspaceSetup()
-                .withAssemblyUrlProtocolAllowed(false)
-                .withPackOnTheFlyAllowed(true).endWorkspaceSetup()
-                .mavenFiltering()
+                .withAssemblyUrlProtocolAllowed(isWorkspaceResolutionAllowed())
+                .withPackOnTheFlyAllowed(isWorkspaceResolutionAllowed())
+                .endWorkspaceSetup().mavenFiltering()
                 .withArtifactFilter(getRepositoryValidArtifactFilter())
                 .withOptional(isOptionalConsidered())
                 .withTransitive(isTransitiveConsidered())
@@ -200,8 +206,8 @@ public class MojoGenerateIndexFromDependencies
                     pCacheDir.relativize(pFileToCopy.toPath()).toString());
             Output<File> output = meta.associateOutput(targetPath.toFile());
             Files.createDirectories(targetPath.getParent());
-            if (Files.copy(pFileToCopy.toPath(),
-                    output.newOutputStream()) > 0 && isVerbose()) {
+            if (Files.copy(pFileToCopy.toPath(), output.newOutputStream()) > 0
+                    && isVerbose()) {
                 getLog().info("    Copied artifact file from '" + pFileToCopy
                         + "' to '" + targetPath + "'");
             }

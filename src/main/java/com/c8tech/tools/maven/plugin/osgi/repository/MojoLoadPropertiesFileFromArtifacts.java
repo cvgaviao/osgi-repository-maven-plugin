@@ -113,9 +113,9 @@ public class MojoLoadPropertiesFileFromArtifacts
                 .withPreviousCachingRequired(false).mavenSetup()
                 .withDependenciesHelper(getDependenciesHelper())
                 .withRepositorySystem(getRepositorySystem()).workspaceSetup()
-                .withAssemblyUrlProtocolAllowed(false)
-                .withPackOnTheFlyAllowed(true).endWorkspaceSetup()
-                .mavenFiltering()
+                .withAssemblyUrlProtocolAllowed(isWorkspaceResolutionAllowed())
+                .withPackOnTheFlyAllowed(isWorkspaceResolutionAllowed())
+                .endWorkspaceSetup().mavenFiltering()
                 .withArtifactFilter(getRepositoryValidArtifactFilter())
                 .withPropertiesArtifactSet(propertiesArtifactSet)
                 .endMavenFiltering().endMavenSetup().build();

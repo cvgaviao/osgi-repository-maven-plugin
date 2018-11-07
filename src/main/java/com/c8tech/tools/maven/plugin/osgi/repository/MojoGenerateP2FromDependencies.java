@@ -125,7 +125,7 @@ public class MojoGenerateP2FromDependencies extends AbstractOsgiRepositoryMojo {
 
         if (!isGenerateP2()) {
             getLog().info(
-                    "Skipping p2 repository generation since it is not generateP2 parameter is false.");
+                    "Skipping p2 repository generation since it was not allowed.");
             return;
         }
 
@@ -138,9 +138,9 @@ public class MojoGenerateP2FromDependencies extends AbstractOsgiRepositoryMojo {
                         isGenerateP2() ? CACHED_FILE_PATTERN_DEFAULT_FINALNAME
                                 : getCachedFileNamePattern())
                 .withRepositorySystem(getRepositorySystem()).workspaceSetup()
-                .withAssemblyUrlProtocolAllowed(false)
-                .withPackOnTheFlyAllowed(true).endWorkspaceSetup()
-                .mavenFiltering()
+                .withAssemblyUrlProtocolAllowed(isWorkspaceResolutionAllowed())
+                .withPackOnTheFlyAllowed(isWorkspaceResolutionAllowed())
+                .endWorkspaceSetup().mavenFiltering()
                 .withArtifactFilter(getRepositoryValidArtifactFilter())
                 .withOptional(isOptionalConsidered())
                 .withTransitive(isTransitiveConsidered())
@@ -173,6 +173,11 @@ public class MojoGenerateP2FromDependencies extends AbstractOsgiRepositoryMojo {
             if (input.isCached()) {
                 buildContext.registerInput(input.getCachedFilePath().toFile());
                 count++;
+                if (isVerbose()) {
+                    getLog().info(count + "- "
+                            + input.getCachedFilePath().toFile().getName());
+
+                }
             }
         }
         if (count == 0) {
@@ -201,7 +206,14 @@ public class MojoGenerateP2FromDependencies extends AbstractOsgiRepositoryMojo {
         }
     }
 
-    private void publishP2Category(Path outputDir)
+    /**
+     * {@link }
+     * 
+     * @param pOutputDir
+     * @throws MojoFailureException
+     * @throws MojoExecutionException
+     */
+    private void publishP2Category(Path pOutputDir)
             throws MojoFailureException, MojoExecutionException {
         if (!categoryDefinitionFile.exists()
                 || !categoryDefinitionFile.canRead()) {
@@ -212,10 +224,10 @@ public class MojoGenerateP2FromDependencies extends AbstractOsgiRepositoryMojo {
                     "Using default category definition file from %s.",
                     categoryDefinitionFile.getAbsolutePath()));
         }
-        launcher.setWorkingDirectory(outputDir.toAbsolutePath().toFile());
+        launcher.setWorkingDirectory(pOutputDir.toAbsolutePath().toFile());
         launcher.setApplicationName(APPLICATION_CATEGORIES_PUBLISHER);
         launcher.addArguments("-metadataRepository",
-                FILE_SCHEME + outputDir.toAbsolutePath().toString());
+                FILE_SCHEME + pOutputDir.toAbsolutePath().toString());
         launcher.addArguments("-categoryDefinition",
                 FILE_SCHEME + categoryDefinitionFile.getAbsolutePath());
 
@@ -226,18 +238,25 @@ public class MojoGenerateP2FromDependencies extends AbstractOsgiRepositoryMojo {
         }
     }
 
-    private void publishP2Content(Path outputDir)
+    private void publishP2Content(Path pOutputDir)
             throws MojoExecutionException {
 
-        launcher.setWorkingDirectory(outputDir.toAbsolutePath().toFile());
+        launcher.setWorkingDirectory(pOutputDir.toAbsolutePath().toFile());
         launcher.setApplicationName(APPLICATION_CONTENT_PUBLISHER);
         launcher.addArguments("-artifactRepository",
-                FILE_SCHEME + outputDir.toAbsolutePath().toString());
+                FILE_SCHEME + pOutputDir.toAbsolutePath().toString());
         launcher.addArguments("-metadataRepository",
-                FILE_SCHEME + outputDir.toAbsolutePath().toString());
+                FILE_SCHEME + pOutputDir.toAbsolutePath().toString());
         launcher.addArguments("-publishArtifacts");
+        launcher.addArguments("-clearPersistedState");
         launcher.addArguments("-artifactRepositoryName",
                 getProject().getArtifactId());
+        if (isVerbose()) {
+            launcher.addArguments("-consolelog");
+            launcher.addArguments("-debug");
+            launcher.addArguments("-verbose");
+        }
+        launcher.addArguments("-flavor", "tooling");
         launcher.addArguments("-metadataRepositoryName",
                 getProject().getArtifactId());
         launcher.addArguments("-source",

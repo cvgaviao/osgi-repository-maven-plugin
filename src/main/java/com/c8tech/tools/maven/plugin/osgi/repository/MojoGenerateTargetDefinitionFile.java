@@ -19,6 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -139,9 +140,10 @@ public class MojoGenerateTargetDefinitionFile
                 .withCachedFileNamePattern(
                         isGenerateP2() ? CACHED_FILE_PATTERN_DEFAULT_FINALNAME
                                 : getCachedFileNamePattern())
-                .workspaceSetup().withAssemblyUrlProtocolAllowed(false)
-                .withPackOnTheFlyAllowed(true).endWorkspaceSetup()
-                .mavenFiltering()
+                .workspaceSetup()
+                .withAssemblyUrlProtocolAllowed(isWorkspaceResolutionAllowed())
+                .withPackOnTheFlyAllowed(isWorkspaceResolutionAllowed())
+                .endWorkspaceSetup().mavenFiltering()
                 .withArtifactFilter(getRepositoryValidArtifactFilter())
                 .withOptional(isOptionalConsidered())
                 .withTransitive(isTransitiveConsidered())
@@ -161,6 +163,10 @@ public class MojoGenerateTargetDefinitionFile
         int countMaven = artifactTrackerManager
                 .resolveMavenArtifacts(getScopes());
 
+        if (isVerbose()) {
+            getLog().info("Maven artifacts resolved: " + countMaven);
+
+        }
         if (countp2 + countMaven > 0)
             prepareForTargetDefinitionFileGeneration(artifactTrackerManager);
 
@@ -188,17 +194,28 @@ public class MojoGenerateTargetDefinitionFile
         for (File file : pInputs) {
             ArtifactTracker artifact = pArtifactTrackers
                     .searchByPath(file.getPath());
-            if (artifact != null && "jar".equals(artifact.getType())) {
 
-                String piece = newUnitLine(artifact);
-                if (piece != null && !piece.isEmpty()) {
-                    xmlFile.add(piece);
-                    if (isVerbose()) {
-                        getLog().info("  Included unit for: "
-                                + artifact.getArtifactId());
+            if (artifact != null) {
+                Optional<String> result = getValidBundleTypes().stream()
+                        .filter(t -> t.trim().equals(artifact.getType().trim()))
+                        .findFirst();
+                if (result.isPresent()) {
+                    String piece = newUnitLine(artifact);
+                    if (piece != null && !piece.isEmpty()) {
+                        xmlFile.add(piece);
+                        if (isVerbose()) {
+                            getLog().info("  Included unit for: "
+                                    + artifact.getArtifactId());
+                        }
                     }
+                } else {
+
+                    getLog().warn("Artifact has an invalid type: "
+                            + artifact.getArtifactId());
                 }
             } else {
+
+                getLog().warn("File missing in cache: " + file);
                 continue;
             }
         }

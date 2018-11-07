@@ -185,11 +185,17 @@ public abstract class AbstractOsgiRepositoryMojo
     private URL forceBaseURL = null;
 
     /**
-     * This property will activate the generation of a p2 repository along with
-     * the normal OSGi R5 index repository.
+     * This property will activate the generation of a R5 OSGi Index repository.
+     */
+    @Parameter(required = true, defaultValue = "true",
+            property = "osgi.repository.generateP2")
+    private boolean generateIndex;
+
+    /**
+     * This property will activate the generation of a p2 repository.
      * <p>
-     * In order to the generated p2 including the declared maven dependencies
-     * the {@link #embedArtifacts} parameter must be set to true.
+     * In order to the generated p2 includes the declared maven dependencies the
+     * {@link #embedArtifacts} parameter must be set to true.
      */
     @Parameter(required = true, defaultValue = "false",
             property = "osgi.repository.generateP2")
@@ -381,6 +387,13 @@ public abstract class AbstractOsgiRepositoryMojo
                     + ","
                     + CommonMojoConstants.OSGI_SUBSYSTEM_PACKAGING_FEATURE)
     private List<String> validSubsystemTypes = new ArrayList<>();
+
+    /**
+     * Indicates whether the plugin should consider the projects opened in the
+     * IDE for dependency resolution.
+     */
+    @Parameter(defaultValue = "false")
+    private boolean workspaceResolutionAllowed;
 
     public AbstractOsgiRepositoryMojo(final MavenProject project) {
         this(project, false, getDefaultSupportedPackaging());
@@ -635,6 +648,10 @@ public abstract class AbstractOsgiRepositoryMojo
         return forceAbsolutePath;
     }
 
+    protected final boolean isGenerateIndex() {
+        return generateIndex;
+    }
+    
     protected final boolean isGenerateP2() {
         return generateP2;
     }
@@ -662,6 +679,10 @@ public abstract class AbstractOsgiRepositoryMojo
 
     protected final boolean isTransitiveConsidered() {
         return transitiveConsidered;
+    }
+
+    public boolean isWorkspaceResolutionAllowed() {
+        return this.workspaceResolutionAllowed;
     }
 
     protected final File knownBundlesExtraFile() {
@@ -719,4 +740,10 @@ public abstract class AbstractOsgiRepositoryMojo
             addValidSubsystemType(validType);
         }
     }
+
+    public void setWorkspaceResolutionAllowed(
+            boolean pAllowsWorkspaceResolution) {
+        this.workspaceResolutionAllowed = pAllowsWorkspaceResolution;
+    }
+
 }

@@ -69,7 +69,6 @@ public class MojoCacheMavenArtifacts extends AbstractOsgiRepositoryMojo {
         getLog().info("Setting up caching of maven artifacts for project "
                 + getProject().getArtifactId());
 
-
         ArtifactTrackerManager artifactTrackerManager = ArtifactTrackerManagerBuilder
                 .newBuilder(getMavenSession(), getCacheDirectory())
                 .withGroupingByTypeDirectory(true).withVerbose(isVerbose())
@@ -79,9 +78,10 @@ public class MojoCacheMavenArtifacts extends AbstractOsgiRepositoryMojo {
                 .withCachedFileNamePattern(
                         isGenerateP2() ? CACHED_FILE_PATTERN_DEFAULT_FINALNAME
                                 : getCachedFileNamePattern())
-                .workspaceSetup().withAssemblyUrlProtocolAllowed(false)
-                .withPackOnTheFlyAllowed(true).endWorkspaceSetup()
-                .mavenFiltering()
+                .workspaceSetup()
+                .withAssemblyUrlProtocolAllowed(isWorkspaceResolutionAllowed())
+                .withPackOnTheFlyAllowed(isWorkspaceResolutionAllowed())
+                .endWorkspaceSetup().mavenFiltering()
                 .withArtifactFilter(getRepositoryValidArtifactFilter())
                 .withOptional(isOptionalConsidered())
                 .withTransitive(isTransitiveConsidered())
