@@ -44,6 +44,20 @@
       storageURI="scope://Workspace"/>
   <setupTask
       xsi:type="setup.p2:P2Task">
+    <requirement
+        name="org.eclipse.m2e.feature.feature.group"/>
+    <requirement
+        name="org.eclipse.m2e.sdk.feature.feature.group"/>
+    <requirement
+        name="org.eclipse.m2e.logback.feature.feature.group"/>
+    <requirement
+        name="org.sonatype.m2e.sisu.feature.feature.group"/>
+    <requirement
+        name="com.ifedorenko.m2e.mavendev.feature.feature.group"/>
+    <repository
+        url="http://ifedorenko.github.com/m2e-extras/"/>
+    <repository
+        url="http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-sisu/0.15.0/N/0.15.0.201409152019/"/>
     <description>Install the tools needed in the IDE to work with the source code for ${scope.project.label}</description>
   </setupTask>
   <setupTask
@@ -83,10 +97,6 @@
             url="http://download.eclipse.org/releases/2019-03"/>
         <repository
             url="http://download.eclipse.org/eclipse/updates/4.11milestones"/>
-        <repository
-            url="http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-sisu/0.15.0/N/0.15.0.201409152019/"/>
-        <repository
-            url="http://ifedorenko.github.com/m2e-extras/"/>
       </repositoryList>
     </targlet>
   </setupTask>
@@ -132,7 +142,7 @@
     </setupTask>
   </stream>
   <logicalProjectContainer
-      xsi:type="setup:Project"
-      href="index:/org.eclipse.setup#//@projectCatalogs[name='com.github']/@projects[name='user.project']"/>
+      xsi:type="setup:ProjectCatalog"
+      href="https://raw.githubusercontent.com/cvgaviao/c8tech-oomph-profiles/master/c8tech.projects.catalog.setup#/"/>
   <description>OSGI Repository Maven Plugin GIT provides cool stuff.</description>
 </setup:Project>
