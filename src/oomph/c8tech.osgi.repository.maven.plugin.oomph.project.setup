@@ -64,6 +64,7 @@
       xsi:type="git:GitCloneTask"
       id="git.clone.osgi.repository.maven.plugin"
       remoteURI="cvgaviao/osgi-repository-maven-plugin">
+      checkoutBranch="${scope.project.stream.name}">
     <annotation
         source="http://www.eclipse.org/oomph/setup/InducedChoices">
       <detail
