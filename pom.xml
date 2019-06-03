@@ -1,6 +1,6 @@
 
 <!-- ==========================================================================  -->
-<!-- Copyright © 2015-2018 Cristiano Gavião, C8 Technology ME.                         -->
+<!-- Copyright © 2015-2019 Cristiano Gavião, C8 Technology ME.                         -->
 <!--                                                                             -->
 <!-- All rights reserved. This program and the accompanying materials            -->
 <!-- are made available under the terms of the Eclipse Public License v1.0       -->
@@ -53,7 +53,7 @@
 
     <properties>
         <c8tech.scm.repo.name>osgi-repository-maven-plugin</c8tech.scm.repo.name>
-        <version.c8tech.maven.library>${project.parent.version}</version.c8tech.maven.library>
+        <c8tech.maven.library.version>${project.parent.version}</c8tech.maven.library.version>
         <tycho.version>1.2.0</tycho.version>
     </properties>
 
@@ -71,17 +71,17 @@
         <dependency>
             <groupId>br.com.c8tech.tools</groupId>
             <artifactId>c8tech.tools.maven.library.mojo</artifactId>
-            <version>${version.c8tech.maven.library}</version>
+            <version>${c8tech.maven.library.version}</version>
         </dependency>
         <dependency>
             <groupId>br.com.c8tech.tools</groupId>
             <artifactId>c8tech.tools.maven.library.osgi.subsystem</artifactId>
-            <version>${version.c8tech.maven.library}</version>
+            <version>${c8tech.maven.library.version}</version>
         </dependency>
         <dependency>
             <groupId>br.com.c8tech.tools</groupId>
             <artifactId>c8tech.tools.maven.library.osgi.repoindex</artifactId>
-            <version>${version.c8tech.maven.library}</version>
+            <version>${c8tech.maven.library.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -188,7 +188,7 @@
         <dependency>
             <groupId>com.googlecode.pojosr</groupId>
             <artifactId>de.kalpatec.pojosr.framework.bare</artifactId>
-            <version>${version.pojosr}</version>
+            <version>${pojosr.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>org.osgi.compendium</artifactId>
@@ -247,14 +247,13 @@
         <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
-            <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>br.com.c8tech.tools</groupId>
             <artifactId>c8tech-tools-maven-pom</artifactId>
-            <version>${version.c8tech.maven.library}</version>
+            <version>${c8tech.maven.library.version}</version>
             <scope>test</scope>
             <type>pom</type>
         </dependency>

@@ -30,10 +30,10 @@
                                 ${project.groupId}:${project.artifactId}:${project.version}:generateTargetDefinitionFile
                             </package>
                             <install>
-                                org.apache.maven.plugins:maven-install-plugin:${version.maven-install}:install
+                                org.apache.maven.plugins:maven-install-plugin:${maven-install.version}:install
                             </install>
                             <deploy>
-                                org.apache.maven.plugins:maven-deploy-plugin:${version.maven-deploy}:deploy
+                                org.apache.maven.plugins:maven-deploy-plugin:${maven-deploy.version}:deploy
                             </deploy>
                         </phases>
                     </lifecycle>
