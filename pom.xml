@@ -21,7 +21,7 @@
 
     <artifactId>osgi-repository-maven-plugin</artifactId>
     <name>OSGi Repository Generator Maven Plugin</name>
-    <version>0.7.0</version>
+    <version>0.7.1-SNAPSHOT</version>
     <description>A maven plugin that is aimed to generate an archive \
        containing one or two OSGi indexed repositories based on project's dependencies.</description>
     <packaging>takari-maven-plugin</packaging>
@@ -37,7 +37,7 @@
         <connection>${c8tech.scm.connection}</connection>
         <developerConnection>${c8tech.scm.connection.dev}</developerConnection>
         <url>${c8tech.scm.url}</url>
-        <tag>v0.7.0</tag>
+        <tag>HEAD</tag>
     </scm>
     <distributionManagement>
         <site>
