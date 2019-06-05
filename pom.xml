@@ -1,15 +1,15 @@
 
-<!-- ========================================================================== -->
-<!-- Copyright © 2015-2019 Cristiano Gavião, C8 Technology ME. -->
-<!-- -->
-<!-- All rights reserved. This program and the accompanying materials -->
-<!-- are made available under the terms of the Eclipse Public License v1.0 -->
-<!-- which accompanies this distribution, and is available at -->
-<!-- http://www.eclipse.org/legal/epl-v10.html -->
-<!-- -->
-<!-- Contributors: -->
-<!-- Cristiano Gavião (cvgaviao@c8tech.com.br)- initial API and implementation -->
-<!-- ========================================================================== -->
+<!-- ==========================================================================  -->
+<!-- Copyright © 2015-2019 Cristiano Gavião, C8 Technology ME.                         -->
+<!--                                                                             -->
+<!-- All rights reserved. This program and the accompanying materials            -->
+<!-- are made available under the terms of the Eclipse Public License v1.0       -->
+<!-- which accompanies this distribution, and is available at                    -->
+<!-- http://www.eclipse.org/legal/epl-v10.html                                   -->
+<!--                                                                             -->
+<!-- Contributors:                                                               -->
+<!-- Cristiano Gavião (cvgaviao@c8tech.com.br)- initial API and implementation   -->
+<!-- ==========================================================================  -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -23,7 +23,7 @@
 
 	<artifactId>osgi-repository-maven-plugin</artifactId>
 	<name>OSGi Repository Generator Maven Plugin</name>
-	<version>0.6.1-SNAPSHOT</version>
+	<version>0.7.1-SNAPSHOT</version>
 	<description>A maven plugin that is aimed to generate an archive \
        containing one or two OSGi indexed repositories based on project's dependencies.</description>
 	<packaging>maven-plugin</packaging>
