@@ -30,7 +30,7 @@
 
 	<!-- not inherited, IIRC -->
 	<prerequisites>
-		<maven>[3.5,)</maven>
+		<maven>[3.6,)</maven>
 	</prerequisites>
 
 	<!-- Due a maven limitation, this MUST be replicated to all children -->

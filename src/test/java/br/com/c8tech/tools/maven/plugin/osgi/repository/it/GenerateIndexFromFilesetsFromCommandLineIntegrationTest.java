@@ -41,7 +41,7 @@ import io.takari.maven.testing.executor.MavenVersions;
 import io.takari.maven.testing.executor.junit.MavenJUnitTestRunner;
 
 @RunWith(MavenJUnitTestRunner.class)
-@MavenVersions({ "3.5.4" })
+@MavenVersions("3.6.0")
 public class GenerateIndexFromFilesetsFromCommandLineIntegrationTest {
 
     public MavenRuntime mavenRuntime;

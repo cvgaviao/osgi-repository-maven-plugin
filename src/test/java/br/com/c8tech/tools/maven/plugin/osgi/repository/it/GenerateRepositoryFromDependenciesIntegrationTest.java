@@ -23,10 +23,12 @@ import org.junit.runner.RunWith;
 import io.takari.maven.testing.executor.MavenExecution;
 import io.takari.maven.testing.executor.MavenExecutionResult;
 import io.takari.maven.testing.executor.MavenRuntime;
+import io.takari.maven.testing.executor.MavenVersions;
 import io.takari.maven.testing.executor.MavenRuntime.MavenRuntimeBuilder;
 import io.takari.maven.testing.executor.junit.MavenJUnitTestRunner;
 
 @RunWith(MavenJUnitTestRunner.class)
+@MavenVersions("3.6.0")
 public class GenerateRepositoryFromDependenciesIntegrationTest
         extends AbstractIntegrationTest {
 
