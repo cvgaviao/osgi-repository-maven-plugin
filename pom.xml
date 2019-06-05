@@ -230,6 +230,7 @@
 		<dependency>
 			<groupId>org.junit.vintage</groupId>
 			<artifactId>junit-vintage-engine</artifactId>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -282,16 +283,13 @@
 				<groupId>org.eclipse.sisu</groupId>
 				<artifactId>sisu-maven-plugin</artifactId>
 				<version>0.3.3</version>
-				<configuration>
-					<detail>true</detail>
-				</configuration>
 				<executions>
 					<execution>
 						<id>generate-index</id>
 						<phase>process-classes</phase>
 						<goals>
 							<goal>main-index</goal>
-							<!-- <goal>test-index</goal> -->
+							<goal>test-index</goal>
 						</goals>
 					</execution>
 					<execution>
