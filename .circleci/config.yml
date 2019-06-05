@@ -46,6 +46,14 @@ jobs: # a collection of steps
       # Run tests!
       - run: mvn -s .circleci/settings.xml -Dc8tech.build.test.coverage clean install
 
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
+      - store_test_results:
+          path: ~/test-results
       - store_artifacts:
           path: /home/circleci/repo/target/test-projects      
 
