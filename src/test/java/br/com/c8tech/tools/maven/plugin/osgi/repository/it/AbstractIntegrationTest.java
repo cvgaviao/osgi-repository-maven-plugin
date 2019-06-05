@@ -39,9 +39,9 @@ public abstract class AbstractIntegrationTest {
     public AbstractIntegrationTest(MavenRuntimeBuilder verifierBuilder)
             throws Exception {
         this.mavenRuntimeBuilder = verifierBuilder;
-        // this.mavenRuntime =
-        // verifierBuilder.withCliOptions("-X","-U","-B").build();
-        this.mavenRuntime = verifierBuilder.withCliOptions("-B").build();
+         this.mavenRuntime =
+         verifierBuilder.withCliOptions("-X","-U","-B").build();
+//        this.mavenRuntime = verifierBuilder.withCliOptions("-B").build();
     }
 
 }
