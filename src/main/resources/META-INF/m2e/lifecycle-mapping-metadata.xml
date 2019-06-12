@@ -1,0 +1,21 @@
+<lifecycleMappingMetadata>
+	<pluginExecutions>
+		<pluginExecution>
+			<pluginExecutionFilter>
+				<goals>
+					<goal>generateP2FromDependencies</goal>
+					<goal>generateIndexFromDependencies</goal>
+					<goal>loadProperties</goal>
+					<goal>cacheMavenArtifacts</goal>
+					<goal>downloadP2Artifacts</goal>
+				</goals>
+			</pluginExecutionFilter>
+			<action>
+				<execute>
+					<runOnIncremental>false</runOnIncremental>
+					<runOnConfiguration>true</runOnConfiguration>
+				</execute>
+			</action>
+		</pluginExecution>
+	</pluginExecutions>
+</lifecycleMappingMetadata>
